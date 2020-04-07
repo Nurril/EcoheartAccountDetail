@@ -17,7 +17,7 @@ var firebaseConfig =
   var database = firebase.database();
 
   firebase.auth.Auth.Persistence.LOCAL;
-  
+
   $("#btn-login").click(function()
     {
     var email = $("#email").val();
@@ -132,48 +132,121 @@ var firebaseConfig =
      }
   });
 
+
   $("#btn-update").click(function()
   {
-    var phone = $("#phone").val();
-    var address = $("#address").val();
-    var bio = $("#bio").val();
-    var fname = $("#firstName").val();
-    var sname = $("#secondNames").val();
-    var country = $("#country").val();
-    var gender = $("#gender").val();
 
+   var phone = $("#phone").val();
+   var address = $("#address").val();
+   var bio = $("#bio").val();
+   var fname = $("#firstName").val();
+   var secondName=$("#secondName").val();
+   var country = $("#country").val();
+   var gender = $("#gender").val();
+     
     
     
     var userId = firebase.auth().currentUser.uid;
     
 
-    if(fname!="" && sname!="" && country!="" && gender!="" && phone!="" && address!="" && bio!="" )
+    if(fname!="" && secondName!="" && country!="" && gender!="" && phone!="" && address!="" && bio!="" )
     {
-        var userData =
-        {
-            "phone": phone,
-            "address": address,
-            "bio": bio,
-            "firstName": fname,
-            "secondName": sname,
-            "country": country,
-            "gender": gender,
-        };
-         
-       var firebaseRef =  firebase().database().ref();
-       firebaseRef.set("hiii");
-         
-        
-        
-            
+       
+        var rootRef = firebase.database().ref(userId).child("user");
+
+
+        rootRef.set({
+        Phone:$("#phone").val(),
+        Address:$("#address").val(),
+        Bio:$("#bio").val(),
+        fname:$("#firstName").val(),
+        secondName:$("#secondName").val(),
+        country:$("#country").val(),
+        gender:$("#gender").val(),
+    })
+ 
+
+        var db = firebase.database();
+        var ref = db.ref(userId).child("Users");  
         
         
 
+      ref.set({
+        
+        fname : $('#firstName').val(),
+        sname : $('#secondName').val(),
+        phone : $('#phone').val(),
+        address : $('#address').val(),
+        gender : $('#gender').val(),
+        country : $('#country').val(),
+        bio : $('#bio').val(),
+       
+       
+       
+        
+    
+       });
+           
+     
+        
+        ref.once("value", function(snapshot)
+         {
+            var data = snapshot.val();   //Data is in JSON format.
+            console.log(data);
+         }); 
+             
+         firebase.auth().onAuthStateChanged(function(user)
+         {
+             if(user)
+             {
+                 
+                 var userID = firebase.auth().currentUser.uid;
+                 firebase.database().ref(userID).once('value').then(function(snapshot)
+                 {
+                     if(snapshot.val())
+                     {
+                         window.location.href = "MainPage.html";
+                     }
+                 
+                 })
+                
+             }
+         });
+              (function(error)
+                 { 
+                if(error)
+                {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+
+                 console.log(errorCode);
+                 console.log(errorMessage);
+
+                 window.alert("Message: "+ errorMessage);
+
+                }
+                else
+                {
+                  window.location.href ="MainPage.html";
+                }
+                });
         }
          else
         {
         window.alert("Please fill up all fields.");
         location.reload(true);
-    }
-    
-});
+        }
+    });
+
+    setInterval(function() {
+        var newVal = Math.floor((Math.random() * 179) + 1);
+      
+        $('.gauge--3 .semi-circle--mask').attr({
+          style: '-webkit-transform: rotate(' + newVal + 'deg);' +
+          '-moz-transform: rotate(' + newVal + 'deg);' +
+          'transform: rotate(' + newVal + 'deg);'
+         });				
+      }, 1000);
+     
+
+  
