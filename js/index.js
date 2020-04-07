@@ -205,7 +205,7 @@ var firebaseConfig =
                  {
                      if(snapshot.val())
                      {
-                         window.location.href = "MainPage.html";
+                         window.location.href = "https://nurril.github.io/ecoheart/";
                      }
                  
                  })
