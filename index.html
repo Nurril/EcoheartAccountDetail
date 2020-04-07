@@ -22,7 +22,7 @@
         </head>
         <body>
             
-            <div class="wrapper" style="background-image: url('accountSettingsback.jpg')" >
+            <div class="wrapper" style="background-image: url('accountSettingsback.jpg')" style="margin-top:40%" >
                 
                 <div class="inner">
                     <div class="image-holder">
@@ -106,9 +106,13 @@
               
               
               
-              firebase.auth().onAuthStateChanged(function(user)
+             firebase.auth().onAuthStateChanged(function(user)
                 {
-                    if(user)
+                    if(!user)
+                    {
+                        window.location.href ="https://nurril.github.io/Ecoheartsignin/";
+                    }
+                      if(user)
                     {
                         
                         var userID = firebase.auth().currentUser.uid;
@@ -123,6 +127,10 @@
                        
                     }
                 });
+             
+             
+             
+                    
 
 
         
