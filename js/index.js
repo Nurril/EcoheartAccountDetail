@@ -152,18 +152,7 @@ var firebaseConfig =
     if(fname!="" && secondName!="" && country!="" && gender!="" && phone!="" && address!="" && bio!="" )
     {
        
-        var rootRef = firebase.database().ref(userId).child("user");
-
-
-        rootRef.set({
-        Phone:$("#phone").val(),
-        Address:$("#address").val(),
-        Bio:$("#bio").val(),
-        fname:$("#firstName").val(),
-        secondName:$("#secondName").val(),
-        country:$("#country").val(),
-        gender:$("#gender").val(),
-    })
+       
  
 
         var db = firebase.database();
